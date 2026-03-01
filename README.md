@@ -37,34 +37,119 @@ plinth add auth-session
 
 ## Installation
 
+### From PyPI
+
 ```bash
 pip install plinth-cli
 ```
 
-> **Note:** Package is `plinth-cli` on PyPI, command is `plinth`.
-
-## 10-Seconds to Production
+### Install with uv (Faster)
 
 ```bash
-# Create project
-plinth init my-app --db postgres
+uv tool install plinth-cli
+```
 
-# Run it
+### From Source
+
+```bash
+git clone https://github.com/cybertycoon/plinth.git
+cd plinth
+pip install -r requirements.txt
+pip install -e .
+```
+
+## Quick Start
+
+### Create a Basic Project
+
+```bash
+plinth init my-app
 cd my-app
 uv run uvicorn src.main:app --reload
+```
 
-# Open http://localhost:8000/docs
+### Create with Database & Auth
+
+```bash
+plinth init my-api --db postgres --auth jwt --redis
+```
+
+### Add Features Later
+
+```bash
+cd my-api
+
+# Add Redis caching
+plinth add redis
+
+# Add JWT authentication
+plinth add auth-jwt
 ```
 
 ## Commands
 
-| Command                  | What it does                        |
-| ------------------------ | ----------------------------------- |
-| `plinth init <name>`     | Scaffold new project with options   |
-| `plinth add <module>`    | Add feature (redis, auth-jwt, etc.) |
-| `plinth remove <module>` | Remove feature cleanly              |
-| `plinth list`            | See installed/available modules     |
-| `plinth doctor`          | Check project health                |
+### `plinth init <name>` — Create New Project
+
+Scaffold a new FastAPI project with your chosen features.
+
+```bash
+# Basic project
+plinth init my-app
+
+# With database and auth
+plinth init my-api --db postgres --auth jwt
+
+# Full stack
+plinth init my-service --db postgres --redis --auth jwt
+```
+
+**Options:**
+
+- `--db postgres|mysql|sqlite` — Add database support
+- `--redis` — Add Redis caching
+- `--auth jwt|session` — Add authentication
+
+### `plinth add <module>` — Add Features Later
+
+Add modules to an existing project without breaking your code.
+
+```bash
+cd my-api
+
+# Add Redis for caching
+plinth add redis
+
+# Add JWT authentication
+plinth add auth-jwt
+
+# Add database (if not added during init)
+plinth add postgres
+```
+
+### `plinth remove <module>` — Remove Features
+
+Cleanly remove a module and its code.
+
+```bash
+plinth remove redis
+plinth remove auth-jwt
+```
+
+### `plinth list` — See What's Available
+
+Shows installed modules and available modules you can add.
+
+```bash
+plinth list
+```
+
+### `plinth doctor` — Check Project Health
+
+Diagnoses issues with your Plinth project.
+
+```bash
+plinth doctor
+```
 
 ## Available Modules
 
