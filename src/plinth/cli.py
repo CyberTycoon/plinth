@@ -26,8 +26,8 @@ app = typer.Typer(
     rich_markup_mode="rich",
 )
 
-# Console for output
-console = Console()
+# Console for output - force unicode on Windows
+console = Console(legacy_windows=False, force_terminal=True)
 
 
 def version_callback(value: bool) -> None:
@@ -228,6 +228,8 @@ def doctor(
         issues = run_doctor(path, console)
         if issues:
             raise typer.Exit(1)
+    except typer.Exit:
+        raise
     except Exception as e:
         console.print(f"[bold red]Error:[/bold red] {e}")
         raise typer.Exit(1)

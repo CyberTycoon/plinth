@@ -105,34 +105,36 @@ def run_doctor(project_path: Path, console: Console) -> List[str]:
     state_manager = StateManager(project_path)
     if not state_manager.exists():
         issues.append("No .plinth.json found - not a Plinth project")
-        return issues
+    else:
+        # Load project state
+        try:
+            state = state_manager.load()
+            console.print(f"[dim]Project:[/dim] {state.project_name}")
+        except Exception as e:
+            issues.append(f"Failed to load .plinth.json: {e}")
 
-    # Load project state
-    try:
-        state = state_manager.load()
-        console.print(f"[dim]Project:[/dim] {state.project_name}")
-    except Exception as e:
-        issues.append(f"Failed to load .plinth.json: {e}")
-        return issues
+        # Only run additional checks if state loaded successfully
+        if not issues:
+            # Check state consistency
+            if state.project_name != project_path.name:
+                issues.append(
+                    f"Project name mismatch: {state.project_name} vs {project_path.name}"
+                )
 
-    # Check state consistency
-    if state.project_name != project_path.name:
-        issues.append(
-            f"Project name mismatch: {state.project_name} vs {project_path.name}"
-        )
+            # Check directory structure
+            check_directory_structure(project_path, issues)
 
-    # Check directory structure
-    check_directory_structure(project_path, issues)
+            # Check core files
+            check_file_exists(project_path / "src" / "main.py", "main.py", issues)
+            check_file_exists(
+                project_path / "src" / "core" / "config.py", "config.py", issues
+            )
+            check_file_exists(
+                project_path / "src" / "core" / "registry.py", "registry.py", issues
+            )
 
-    # Check core files
-    check_file_exists(project_path / "src" / "main.py", "main.py", issues)
-    check_file_exists(project_path / "src" / "core" / "config.py", "config.py", issues)
-    check_file_exists(
-        project_path / "src" / "core" / "registry.py", "registry.py", issues
-    )
-
-    # Check module consistency
-    check_module_consistency(project_path, state_manager, issues)
+            # Check module consistency
+            check_module_consistency(project_path, state_manager, issues)
 
     # Display results
     console.print()
