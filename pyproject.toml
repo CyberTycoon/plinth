@@ -3,7 +3,35 @@ name = "plinth"
 version = "1.0.0"
 description = "A high-performance, developer-first CLI scaffolding tool for FastAPI"
 readme = "README.md"
+license = {text = "MIT"}
 requires-python = ">=3.10"
+authors = [
+    {name = "Silas Okanlawon", email = "okanlawonsilas@gmail.com"},
+]
+keywords = [
+    "fastapi",
+    "cli",
+    "scaffolding",
+    "generator",
+    "web",
+    "api",
+    "framework",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
 dependencies = [
     "typer[all]>=0.12.0",
     "jinja2>=3.1.0",
@@ -13,6 +41,13 @@ dependencies = [
     "rich>=13.0.0",
     "toml>=0.10.2",
 ]
+
+[project.urls]
+Homepage = "https://github.com/cybertycoon/plinth"
+Documentation = "https://github.com/cybertycoon/plinth/blob/main/docs"
+Repository = "https://github.com/cybertycoon/plinth.git"
+Issues = "https://github.com/cybertycoon/plinth/issues"
+Changelog = "https://github.com/cybertycoon/plinth/blob/main/CHANGELOG.md"
 
 [project.scripts]
 plinth = "plinth.cli:main"
