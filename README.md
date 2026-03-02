@@ -1,4 +1,6 @@
-# 🪨 Plinth
+# 🪨 Plinth-CLI
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > Stop building the "basement" of your FastAPI project.
 
@@ -15,20 +17,20 @@ Every new FastAPI project starts with the same 2-hour slog:
 
 ## The Solution
 
-Plinth scaffolds production-ready FastAPI projects in **2 seconds**, then lets you add features incrementally without breaking your code.
+Plinth-CLI scaffolds production-ready FastAPI projects in **2 seconds**, then lets you add features incrementally without breaking your code.
 
 ```bash
 # Start with exactly what you need
-plinth init my-api --db postgres --auth jwt
+plinth-cli init my-api --db postgres --auth jwt
 
 # Change your mind later? No problem.
-plinth add redis
-plinth add auth-session
+plinth-cli add redis
+plinth-cli add auth-session
 ```
 
-## Why Plinth?
+## Why Plinth-CLI?
 
-| Without Plinth                                | With Plinth                                    |
+| Without Plinth-CLI                            | With Plinth-CLI                                |
 | --------------------------------------------- | ---------------------------------------------- |
 | Copy-paste boilerplate from old projects      | Generate clean, consistent structure instantly |
 | Fear of adding features mid-project           | Add/remove modules anytime safely              |
@@ -53,7 +55,7 @@ uv tool install plinth-cli
 
 ```bash
 git clone https://github.com/cybertycoon/plinth.git
-cd plinth
+cd plinth-cli
 pip install -r requirements.txt
 pip install -e .
 ```
@@ -63,7 +65,7 @@ pip install -e .
 ### Create a Basic Project
 
 ```bash
-plinth init my-app
+plinth-cli init my-app
 cd my-app
 uv run uvicorn src.main:app --reload
 ```
@@ -71,7 +73,7 @@ uv run uvicorn src.main:app --reload
 ### Create with Database & Auth
 
 ```bash
-plinth init my-api --db postgres --auth jwt --redis
+plinth-cli init my-api --db postgres --auth jwt --redis
 ```
 
 ### Add Features Later
@@ -80,27 +82,27 @@ plinth init my-api --db postgres --auth jwt --redis
 cd my-api
 
 # Add Redis caching
-plinth add redis
+plinth-cli add redis
 
 # Add JWT authentication
-plinth add auth-jwt
+plinth-cli add auth-jwt
 ```
 
 ## Commands
 
-### `plinth init <name>` — Create New Project
+### `plinth-cli init <name>` — Create New Project
 
 Scaffold a new FastAPI project with your chosen features.
 
 ```bash
 # Basic project
-plinth init my-app
+plinth-cli init my-app
 
 # With database and auth
-plinth init my-api --db postgres --auth jwt
+plinth-cli init my-api --db postgres --auth jwt
 
 # Full stack
-plinth init my-service --db postgres --redis --auth jwt
+plinth-cli init my-service --db postgres --redis --auth jwt
 ```
 
 **Options:**
@@ -109,7 +111,7 @@ plinth init my-service --db postgres --redis --auth jwt
 - `--redis` — Add Redis caching
 - `--auth jwt|session` — Add authentication
 
-### `plinth add <module>` — Add Features Later
+### `plinth-cli add <module>` — Add Features Later
 
 Add modules to an existing project without breaking your code.
 
@@ -117,38 +119,38 @@ Add modules to an existing project without breaking your code.
 cd my-api
 
 # Add Redis for caching
-plinth add redis
+plinth-cli add redis
 
 # Add JWT authentication
-plinth add auth-jwt
+plinth-cli add auth-jwt
 
 # Add database (if not added during init)
-plinth add postgres
+plinth-cli add postgres
 ```
 
-### `plinth remove <module>` — Remove Features
+### `plinth-cli remove <module>` — Remove Features
 
 Cleanly remove a module and its code.
 
 ```bash
-plinth remove redis
-plinth remove auth-jwt
+plinth-cli remove redis
+plinth-cli remove auth-jwt
 ```
 
-### `plinth list` — See What's Available
+### `plinth-cli list` — See What's Available
 
 Shows installed modules and available modules you can add.
 
 ```bash
-plinth list
+plinth-cli list
 ```
 
-### `plinth doctor` — Check Project Health
+### `plinth-cli doctor` — Check Project Health
 
-Diagnoses issues with your Plinth project.
+Diagnoses issues with your Plinth-CLI project.
 
 ```bash
-plinth doctor
+plinth-cli doctor
 ```
 
 ## Available Modules
@@ -160,7 +162,7 @@ plinth doctor
 
 ## How It Works
 
-Plinth doesn't just copy files—it **understands** your Python code using AST manipulation. When you run `plinth add redis`, it:
+Plinth-CLI doesn't just copy files—it **understands** your Python code using AST manipulation. When you run `plinth-cli add redis`, it:
 
 1. Injects Redis connection code into your main app
 2. Updates `.env` with Redis URL
@@ -199,8 +201,9 @@ my-app/
 
 ## Documentation
 
-- [Complete User Guide](docs/plinth-complete-guide.md)
-- [Developer Guide](docs/developer-guide.md)
+- [Complete User Guide](https://github.com/CyberTycoon/plinth/blob/main/docs/plinth-complete-guide.md)
+- [Developer Guide](https://github.com/CyberTycoon/plinth/blob/main/docs/developer-guide.md)
+- [Roadmap](https://github.com/CyberTycoon/plinth/blob/main/ROADMAP.md)
 
 ## License
 

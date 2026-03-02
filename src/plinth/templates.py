@@ -1,6 +1,5 @@
 """Template rendering system for Plinth."""
 
-import shutil
 from pathlib import Path
 from typing import Any, Optional
 

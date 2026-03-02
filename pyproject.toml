@@ -1,9 +1,9 @@
 [project]
 name = "plinth-cli"
-version = "1.0.1"
+version = "1.0.3"
 description = "Scaffold FastAPI projects in seconds, add features as you grow"
 readme = "README.md"
-license = {text = "MIT"}
+license = {file = "LICENSE"}
 requires-python = ">=3.10"
 authors = [
     {name = "Silas Okanlawon", email = "okanlawonsilas@gmail.com"},
@@ -50,7 +50,7 @@ Issues = "https://github.com/cybertycoon/plinth/issues"
 Changelog = "https://github.com/cybertycoon/plinth/blob/main/CHANGELOG.md"
 
 [project.scripts]
-plinth = "plinth.cli:main"
+plinth-cli = "plinth.cli:main"
 
 [build-system]
 requires = ["hatchling"]

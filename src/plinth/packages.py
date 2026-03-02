@@ -2,7 +2,6 @@
 
 import subprocess
 from pathlib import Path
-from typing import Optional
 
 from plinth.logger import logger
 
@@ -26,7 +25,7 @@ class PackageManager:
 
         try:
             logger.info("Installing dependencies with uv...")
-            result = subprocess.run(
+            subprocess.run(
                 ["uv", "sync"],
                 cwd=self.project_path,
                 capture_output=True,
@@ -60,7 +59,7 @@ class PackageManager:
 
         try:
             logger.info(f"Adding package: {package}")
-            result = subprocess.run(
+            subprocess.run(
                 ["uv", "add", package],
                 cwd=self.project_path,
                 capture_output=True,

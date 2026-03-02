@@ -1,7 +1,6 @@
 """Add command implementation for adding modules to projects."""
 
 from pathlib import Path
-from typing import Optional
 
 from rich.console import Console
 from rich.panel import Panel

@@ -1,12 +1,12 @@
-# 🪨 Plinth: User Guide
+# 🪨 Plinth-CLI: User Guide
 
 > Create FastAPI projects in seconds, add features as you grow
 
 ---
 
-## What is Plinth?
+## What is Plinth-CLI?
 
-Plinth is a tool that creates FastAPI projects with the features you need. Instead of starting from scratch, tell Plinth what you want (database, authentication, etc.) and it sets everything up for you.
+plinth-cli is a tool that creates FastAPI projects with the features you need. Instead of starting from scratch, tell plinth-cli what you want (database, authentication, etc.) and it sets everything up for you.
 
 **The big idea:** Start simple, add features later without breaking your code.
 
@@ -31,7 +31,7 @@ uv tool install plinth-cli
 ### Verify Installation
 
 ```bash
-plinth --version
+plinth-cli --version
 ```
 
 ---
@@ -41,8 +41,8 @@ plinth --version
 ### 1. Create Your First Project
 
 ```bash
-plinth --help
-plinth init my-first-app
+plinth-cli --help
+plinth-cli init my-first-app
 cd my-first-app
 uv run uvicorn src.main:app --reload
 ```
@@ -57,38 +57,38 @@ Open http://localhost:8000/docs - you have a working API!
 
 ```bash
 # SQLite (simplest, no setup)
-plinth init my-app --db sqlite
+plinth-cli init my-app --db sqlite
 
 # PostgreSQL (production-ready)
-plinth init my-app --db postgres
+plinth-cli init my-app --db postgres
 
 # MySQL
-plinth init my-app --db mysql
+plinth-cli init my-app --db mysql
 ```
 
 ### "I need user login"
 
 ```bash
 # JWT tokens (for APIs)
-plinth init my-app --auth jwt
+plinth-cli init my-app --auth jwt
 
 # Session cookies (for web apps)
-plinth init my-app --auth session
+plinth-cli init my-app --auth session
 
 # With database
-plinth init my-app --db postgres --auth jwt
+plinth-cli init my-app --db postgres --auth jwt
 ```
 
 ### "I need caching"
 
 ```bash
-plinth init my-app --redis
+plinth-cli init my-app --redis
 ```
 
 ### "I need everything"
 
 ```bash
-plinth init my-app \
+plinth-cli init my-app \
   --db postgres \
   --auth jwt \
   --redis \
@@ -120,13 +120,13 @@ Started simple but need more? No problem!
 cd my-app
 
 # Add Redis caching
-plinth add redis
+plinth-cli add redis
 
 # Add authentication
-plinth add auth-jwt
+plinth-cli add auth-jwt
 
 # Add database
-plinth add postgres
+plinth-cli add postgres
 ```
 
 **What happens:**
@@ -140,7 +140,7 @@ plinth add postgres
 
 ## Project Structure
 
-After running `plinth init`, you get:
+After running `plinth-cli init`, you get:
 
 ```
 my-app/
@@ -165,7 +165,7 @@ my-app/
 ├── .gitignore          # Git ignore rules
 ├── pyproject.toml       # Dependencies
 ├── README.md            # Project readme
-└── .plinth.json         # Plinth state
+└── .plinth.json         # plinth-cli state
 ```
 
 **Your code goes in:**
@@ -212,19 +212,19 @@ REDIS_URL=redis://localhost:6379/0
 ### See what's installed
 
 ```bash
-plinth list
+plinth-cli list
 ```
 
 ### Check for problems
 
 ```bash
-plinth doctor
+plinth-cli doctor
 ```
 
 ### Remove a feature
 
 ```bash
-plinth remove redis
+plinth-cli remove redis
 ```
 
 ---
@@ -234,7 +234,7 @@ plinth remove redis
 ### REST API with Database
 
 ```bash
-plinth init todo-api --db sqlite
+plinth-cli init todo-api --db sqlite
 ```
 
 Creates:
@@ -246,7 +246,7 @@ Creates:
 ### User Authentication System
 
 ```bash
-plinth init user-service --db postgres --auth jwt
+plinth-cli init user-service --db postgres --auth jwt
 ```
 
 Creates:
@@ -259,7 +259,7 @@ Creates:
 ### High-Performance API
 
 ```bash
-plinth init highperf-api \
+plinth-cli init highperf-api \
   --db postgres \
   --redis \
   --docker
@@ -275,20 +275,20 @@ Creates:
 
 ## Troubleshooting
 
-### "plinth command not found"
+### "plinth-cli command not found"
 
 ```bash
 # Reinstall
 pip install --force-reinstall plinth
 ```
 
-### "No Plinth project found"
+### "No plinth-cli project found"
 
-You're not in a Plinth project directory. Look for `.plinth.json` or run `plinth init` first.
+You're not in a plinth-cli project directory. Look for `.plinth.json` or run `plinth-cli init` first.
 
 ### "Module already installed"
 
-You can't add the same module twice. Use `plinth list` to see what's installed.
+You can't add the same module twice. Use `plinth-cli list` to see what's installed.
 
 ### Database connection errors
 
@@ -298,8 +298,8 @@ Check your `.env` file has the correct `DATABASE_URL`.
 
 ## Next Steps
 
-1. **Create a project:** `plinth init my-app --db sqlite`
-2. **Add features:** `plinth add redis`, `plinth add auth-jwt`
+1. **Create a project:** `plinth-cli init my-app --db sqlite`
+2. **Add features:** `plinth-cli add redis`, `plinth-cli add auth-jwt`
 3. **Start coding:** Add your endpoints in `src/api/v1/`
 4. **Deploy:** Use the generated Dockerfile
 
@@ -307,20 +307,20 @@ Check your `.env` file has the correct `DATABASE_URL`.
 
 ## Commands Reference
 
-| Command                  | Purpose                             |
-| ------------------------ | ----------------------------------- |
-| `plinth init <name>`     | Create new project                  |
-| `plinth add <module>`    | Add feature (redis, auth-jwt, etc.) |
-| `plinth remove <module>` | Remove feature                      |
-| `plinth list`            | Show installed/available modules    |
-| `plinth doctor`          | Check project health                |
-| `plinth --help`          | Show all options                    |
+| Command                      | Purpose                             |
+| ---------------------------- | ----------------------------------- |
+| `plinth-cli init <name>`     | Create new project                  |
+| `plinth-cli add <module>`    | Add feature (redis, auth-jwt, etc.) |
+| `plinth-cli remove <module>` | Remove feature                      |
+| `plinth-cli list`            | Show installed/available modules    |
+| `plinth-cli doctor`          | Check project health                |
+| `plinth-cli --help`          | Show all options                    |
 
 ---
 
 ## Developer Documentation
 
-Want to contribute or modify Plinth? See [developer-guide.md](developer-guide.md) for:
+Want to contribute or modify Plinth-CLI? See [developer-guide.md](developer-guide.md) for:
 
 - Code architecture
 - Adding new modules

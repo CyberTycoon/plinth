@@ -1,7 +1,6 @@
 """Configuration and constants for Plinth."""
 
 from dataclasses import dataclass
-from typing import Optional
 
 
 @dataclass(frozen=True)

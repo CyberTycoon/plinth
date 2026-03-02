@@ -1,6 +1,6 @@
-# Plinth Developer Guide
+# plinth-cli Developer Guide
 
-> Quick reference for internal developers working on the Plinth codebase
+> Quick reference for internal developers working on the plinth-cli codebase
 
 ---
 
@@ -17,11 +17,11 @@ cd plinth
 pip install -r requirements.txt
 
 # 3. Run in development mode (no installation needed)
-python -m plinth --help
+python -m plinth-cli --help
 
 # OR install in editable mode for regular development
 pip install -e .
-plinth --help
+plinth-cli --help
 ```
 
 ### What Each Command Does
@@ -30,20 +30,20 @@ plinth --help
 
 Installs all required Python packages (typer, jinja2, pydantic, libcst, rich, etc.) into your current Python environment.
 
-#### `python -m plinth --help`
+#### `python -m plinth-cli --help`
 
-Runs Plinth as a Python module directly from source code. Useful for quick testing without installation. The `-m` flag tells Python to run the `plinth` package's `__main__.py` file.
+Runs plinth-cli as a Python module directly from source code. Useful for quick testing without installation. The `-m` flag tells Python to run the `plinth` package's `__main__.py` file.
 
 #### `pip install -e .`
 
-Installs Plinth in **editable (development) mode**:
+Installs plinth-cli in **editable (development) mode**:
 
 - `-e` = Editable install (creates a link to source code)
 - `.` = Current directory (where `pyproject.toml` is located)
 - Changes to source code are immediately reflected without reinstalling
 - Makes the `plinth` command available system-wide
 
-#### `plinth --help`
+#### `plinth-cli --help`
 
 Displays all available CLI commands, their descriptions, and options. After editable install, you can use `plinth` directly instead of `python -m plinth`.
 
@@ -79,10 +79,10 @@ Displays all available CLI commands, their descriptions, and options. After edit
 
 **What it is:** A list in `src/core/registry.py` that holds all API routers
 
-**Why we use it:** Allows Plinth to inject new routes without touching `main.py`
+**Why we use it:** Allows plinth-cli to inject new routes without touching `main.py`
 
 ```python
-# This is the magic that makes 'plinth add' work
+# This is the magic that makes 'plinth-cli add' work
 ROUTERS: list[APIRouter] = []
 ```
 
@@ -166,13 +166,13 @@ except PlinthError as e:
 
 ```bash
 # Database only
-plinth init my-app --db postgres
+plinth-cli init my-app --db postgres
 
 # Database + Auth
-plinth init my-app --db postgres --auth jwt
+plinth-cli init my-app --db postgres --auth jwt
 
 # Full stack
-plinth init my-app --db postgres --auth jwt --redis
+plinth-cli init my-app --db postgres --auth jwt --redis
 ```
 
 #### Adding to Existing Projects
@@ -181,13 +181,13 @@ plinth init my-app --db postgres --auth jwt --redis
 cd my-app
 
 # Add database
-plinth add postgres
+plinth-cli add postgres
 
 # Add auth
-plinth add auth-jwt
+plinth-cli add auth-jwt
 
 # Add cache
-plinth add redis
+plinth-cli add redis
 ```
 
 ### Module Configuration
@@ -335,36 +335,36 @@ Update [`src/plinth/templates/base/src/config.py.j2`](src/plinth/templates/base/
 
 ## CLI Commands for Development
 
-### `python -m plinth <command>`
+### `python -m plinth-cli <command>`
 
-Runs Plinth directly from source code without installation. Useful during development.
+Runs plinth-cli directly from source code without installation. Useful during development.
 
 ```bash
 # Test init command
-python -m plinth init test-app --db sqlite
+python -m plinth-cli init test-app --db sqlite
 
 # Test add command
-python -m plinth add redis --path test-app
+python -m plinth-cli add redis --path test-app
 
 # Show help
-python -m plinth --help
+python -m plinth-cli --help
 ```
 
-### `plinth <command>` (after `pip install -e .`)
+### `plinth-cli <command>` (after `pip install -e .`)
 
 Same commands, but available globally after editable install.
 
 ```bash
 # Create project
-plinth init my-app
+plinth-cli init my-app
 
 # Add features
-plinth add redis
-plinth add auth-jwt
+plinth-cli add redis
+plinth-cli add auth-jwt
 
 # Check status
-plinth list
-plinth doctor
+plinth-cli list
+plinth-cli doctor
 ```
 
 ### Command Details
@@ -375,23 +375,23 @@ Creates a new FastAPI project. As a developer, you can test with different flags
 
 ```bash
 # Minimal
-plinth init test1
+plinth-cli init test1
 
 # With database
-plinth init test2 --db postgres
+plinth-cli init test2 --db postgres
 
 # Full feature
-plinth init test3 --db postgres --auth jwt --redis
+plinth-cli init test3 --db postgres --auth jwt --redis
 ```
 
 #### `add`
 
-Adds a module. Requires being inside a Plinth project:
+Adds a module. Requires being inside a plinth-cli project:
 
 ```bash
 cd my-app
-plinth add redis      # Adds Redis cache.py
-plinth add auth-jwt   # Adds auth with routes
+plinth-cli add redis      # Adds Redis cache.py
+plinth-cli add auth-jwt   # Adds auth with routes
 ```
 
 #### `list`
@@ -399,8 +399,8 @@ plinth add auth-jwt   # Adds auth with routes
 Shows modules. Helpful to verify state:
 
 ```bash
-plinth list --installed   # What's in current project
-plinth list --available   # What can be added
+plinth-cli list --installed   # What's in current project
+plinth-cli list --available   # What can be added
 ```
 
 #### `doctor`
@@ -408,7 +408,7 @@ plinth list --available   # What can be added
 Diagnoses issues. Use when things go wrong:
 
 ```bash
-plinth doctor  # Check .plinth.json, structure, modules
+plinth-cli doctor  # Check .plinth.json, structure, modules
 ```
 
 ---
@@ -419,14 +419,14 @@ plinth doctor  # Check .plinth.json, structure, modules
 
 ```bash
 # Run without installing (quick test)
-python -m plinth init test-app --db sqlite
+python -m plinth-cli init test-app --db sqlite
 
 # After making changes, test with editable install
 pip install -e .
-plinth init test-app --db postgres --auth jwt
+plinth-cli init test-app --db postgres --auth jwt
 
 # Debug logging
-python -m plinth init test-app --db sqlite -v
+python -m plinth-cli init test-app --db sqlite -v
 ```
 
 ### Adding a New Dependency
@@ -513,7 +513,7 @@ python -c "from plinth.templates import TemplateRenderer; t = TemplateRenderer()
 ```bash
 # Delete and re-initialize state
 rm .plinth.json
-plinth doctor  # Will detect issues
+plinth-cli doctor  # Will detect issues
 ```
 
 ---

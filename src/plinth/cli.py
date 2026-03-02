@@ -5,8 +5,6 @@ from typing import Optional
 
 import typer
 from rich.console import Console
-from rich.panel import Panel
-from rich.table import Table
 
 from plinth import __version__
 from plinth.commands.init import init_project
@@ -16,7 +14,6 @@ from plinth.commands.remove import remove_module
 from plinth.commands.doctor import run_doctor
 from plinth.config import plinth_config
 from plinth.exceptions import PlinthError
-from plinth.logger import logger
 
 # Create Typer app
 app = typer.Typer(
