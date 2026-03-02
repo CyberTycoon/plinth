@@ -173,16 +173,28 @@ Your project stays clean, typed, and maintainable.
 
 ```
 my-app/
-├── .plinth.json          # Tracks installed modules
-├── pyproject.toml        # Dependencies
 ├── src/
-│   ├── main.py          # FastAPI entry
+│   ├── __init__.py       # Package initializer
+│   ├── main.py           # FastAPI entry
+│   ├── api/
+│   │   ├── __init__.py
+│   │   └── v1/
+│   │       ├── __init__.py
+│   │       └── health.py
 │   ├── core/
-│   │   ├── config.py    # Pydantic settings
-│   │   └── registry.py  # Auto-router registration
-│   └── api/
-│       └── v1/
-└── tests/
+│   │   ├── __init__.py
+│   │   ├── config.py     # Pydantic settings
+│   │   ├── database.py   # Database connection (if DB selected)
+│   │   └── registry.py   # Auto-router registration
+│   └── models/
+│       └── __init__.py
+├── tests/
+│   └── __init__.py
+├── .env.example          # Environment template
+├── .gitignore           # Git ignore rules
+├── .plinth.json         # Tracks installed modules
+├── pyproject.toml       # Dependencies
+└── README.md            # Project readme
 ```
 
 ## Documentation

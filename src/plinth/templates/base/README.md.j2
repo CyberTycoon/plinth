@@ -19,17 +19,27 @@ The API will be available at `http://localhost:8000`.
 ```
 {{ project_name }}/
 ├── src/
+│   ├── __init__.py          # Package initializer
 │   ├── main.py              # FastAPI application entry point
 │   ├── core/
+│   │   ├── __init__.py
 │   │   ├── config.py        # Application settings
+│   │   ├── database.py      # Database connection (if DB selected)
 │   │   └── registry.py      # Router registry
 │   ├── api/
+│   │   ├── __init__.py
 │   │   └── v1/
+│   │       ├── __init__.py
 │   │       └── health.py    # Health check endpoints
 │   └── models/              # Database models
+│       └── __init__.py
 ├── tests/                   # Test suite
+│   └── __init__.py
 ├── pyproject.toml           # Project dependencies
-└── .env                     # Environment variables (create from .env.example)
+├── .env.example             # Environment template
+├── .gitignore              # Git ignore rules
+├── .plinth.json            # Plinth state
+└── README.md               # Project readme
 ```
 
 ## Configuration

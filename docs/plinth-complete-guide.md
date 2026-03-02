@@ -145,15 +145,26 @@ After running `plinth init`, you get:
 ```
 my-app/
 ├── src/
+│   ├── __init__.py      # Package initializer
 │   ├── main.py          # API entry point
+│   ├── api/
+│   │   ├── __init__.py
+│   │   └── v1/
+│   │       ├── __init__.py
+│   │       └── health.py
 │   ├── core/
-│   │   ├── config.py    # Settings
+│   │   ├── __init__.py
+│   │   ├── config.py    # Application settings
+│   │   ├── database.py  # Database connection (if DB selected)
 │   │   └── registry.py  # Route registration
-│   └── api/
-│       └── v1/
-│           └── health.py
+│   └── models/
+│       └── __init__.py
+├── tests/
+│   └── __init__.py
 ├── .env.example         # Environment template
+├── .gitignore          # Git ignore rules
 ├── pyproject.toml       # Dependencies
+├── README.md            # Project readme
 └── .plinth.json         # Plinth state
 ```
 
