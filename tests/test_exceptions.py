@@ -2,7 +2,7 @@
 
 import pytest
 
-from plinth.exceptions import (
+from pedestal.exceptions import (
     PlinthError,
     ProjectExistsError,
     NotAPlinthProjectError,

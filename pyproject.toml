@@ -1,6 +1,6 @@
 [project]
-name = "plinth-cli"
-version = "1.0.3"
+name = "pedestal"
+version = "1.0.0"
 description = "Scaffold FastAPI projects in seconds, add features as you grow"
 readme = "README.md"
 license = {file = "LICENSE"}
@@ -43,21 +43,21 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/cybertycoon/plinth"
-Documentation = "https://github.com/cybertycoon/plinth/blob/main/docs"
-Repository = "https://github.com/cybertycoon/plinth.git"
-Issues = "https://github.com/cybertycoon/plinth/issues"
-Changelog = "https://github.com/cybertycoon/plinth/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/cybertycoon/pedestal"
+Documentation = "https://github.com/cybertycoon/pedestal/blob/main/docs"
+Repository = "https://github.com/cybertycoon/pedestal.git"
+Issues = "https://github.com/cybertycoon/pedestal/issues"
+Changelog = "https://github.com/cybertycoon/pedestal/blob/main/CHANGELOG.md"
 
 [project.scripts]
-plinth-cli = "plinth.cli:main"
+pedestal = "pedestal.cli:app"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/plinth"]
+packages = ["src/pedestal"]
 
 [tool.ruff]
 line-length = 100

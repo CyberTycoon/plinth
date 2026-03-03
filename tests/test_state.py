@@ -7,9 +7,9 @@ from pathlib import Path
 
 import pytest
 
-from plinth.state import ModuleInfo, ProjectState, StateManager
-from plinth.config import plinth_config
-from plinth.exceptions import NotAPlinthProjectError, ModuleAlreadyInstalledError
+from pedestal.state import ModuleInfo, ProjectState, StateManager
+from pedestal.config import pedestal_config
+from pedestal.exceptions import NotAPlinthProjectError, ModuleAlreadyInstalledError
 
 
 class TestModuleInfo:

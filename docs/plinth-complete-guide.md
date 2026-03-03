@@ -1,12 +1,12 @@
-# 🪨 Plinth-CLI: User Guide
+# 🪨 pedestal: User Guide
 
 > Create FastAPI projects in seconds, add features as you grow
 
 ---
 
-## What is Plinth-CLI?
+## What is pedestal?
 
-plinth-cli is a tool that creates FastAPI projects with the features you need. Instead of starting from scratch, tell plinth-cli what you want (database, authentication, etc.) and it sets everything up for you.
+pedestal is a tool that creates FastAPI projects with the features you need. Instead of starting from scratch, tell pedestal what you want (database, authentication, etc.) and it sets everything up for you.
 
 **The big idea:** Start simple, add features later without breaking your code.
 
@@ -17,21 +17,21 @@ plinth-cli is a tool that creates FastAPI projects with the features you need. I
 ### Option 1: Install from PyPI (Recommended)
 
 ```bash
-pip install plinth-cli
+pip install pedestal
 ```
 
 ### Option 2: Install with uv (Faster)
 
 ```bash
-uv tool install plinth-cli
+uv tool install pedestal
 ```
 
-> **Note:** The package is named `plinth-cli` on PyPI, but the command remains `plinth`.
+> **Note:** The package is named `pedestal` on PyPI, but the command remains `Pedestal`.
 
 ### Verify Installation
 
 ```bash
-plinth-cli --version
+pedestal --version
 ```
 
 ---
@@ -41,8 +41,8 @@ plinth-cli --version
 ### 1. Create Your First Project
 
 ```bash
-plinth-cli --help
-plinth-cli init my-first-app
+pedestal --help
+pedestal init my-first-app
 cd my-first-app
 uv run uvicorn src.main:app --reload
 ```
@@ -57,38 +57,38 @@ Open http://localhost:8000/docs - you have a working API!
 
 ```bash
 # SQLite (simplest, no setup)
-plinth-cli init my-app --db sqlite
+pedestal init my-app --db sqlite
 
 # PostgreSQL (production-ready)
-plinth-cli init my-app --db postgres
+pedestal init my-app --db postgres
 
 # MySQL
-plinth-cli init my-app --db mysql
+pedestal init my-app --db mysql
 ```
 
 ### "I need user login"
 
 ```bash
 # JWT tokens (for APIs)
-plinth-cli init my-app --auth jwt
+pedestal init my-app --auth jwt
 
 # Session cookies (for web apps)
-plinth-cli init my-app --auth session
+pedestal init my-app --auth session
 
 # With database
-plinth-cli init my-app --db postgres --auth jwt
+pedestal init my-app --db postgres --auth jwt
 ```
 
 ### "I need caching"
 
 ```bash
-plinth-cli init my-app --redis
+pedestal init my-app --redis
 ```
 
 ### "I need everything"
 
 ```bash
-plinth-cli init my-app \
+pedestal init my-app \
   --db postgres \
   --auth jwt \
   --redis \
@@ -120,13 +120,13 @@ Started simple but need more? No problem!
 cd my-app
 
 # Add Redis caching
-plinth-cli add redis
+pedestal add redis
 
 # Add authentication
-plinth-cli add auth-jwt
+pedestal add auth-jwt
 
 # Add database
-plinth-cli add postgres
+pedestal add postgres
 ```
 
 **What happens:**
@@ -140,7 +140,7 @@ plinth-cli add postgres
 
 ## Project Structure
 
-After running `plinth-cli init`, you get:
+After running `pedestal init`, you get:
 
 ```
 my-app/
@@ -165,7 +165,7 @@ my-app/
 ├── .gitignore          # Git ignore rules
 ├── pyproject.toml       # Dependencies
 ├── README.md            # Project readme
-└── .plinth.json         # plinth-cli state
+└── .Pedestal.json         # pedestal state
 ```
 
 **Your code goes in:**
@@ -212,19 +212,19 @@ REDIS_URL=redis://localhost:6379/0
 ### See what's installed
 
 ```bash
-plinth-cli list
+pedestal list
 ```
 
 ### Check for problems
 
 ```bash
-plinth-cli doctor
+pedestal doctor
 ```
 
 ### Remove a feature
 
 ```bash
-plinth-cli remove redis
+pedestal remove redis
 ```
 
 ---
@@ -234,7 +234,7 @@ plinth-cli remove redis
 ### REST API with Database
 
 ```bash
-plinth-cli init todo-api --db sqlite
+pedestal init todo-api --db sqlite
 ```
 
 Creates:
@@ -246,7 +246,7 @@ Creates:
 ### User Authentication System
 
 ```bash
-plinth-cli init user-service --db postgres --auth jwt
+pedestal init user-service --db postgres --auth jwt
 ```
 
 Creates:
@@ -259,7 +259,7 @@ Creates:
 ### High-Performance API
 
 ```bash
-plinth-cli init highperf-api \
+pedestal init highperf-api \
   --db postgres \
   --redis \
   --docker
@@ -275,20 +275,20 @@ Creates:
 
 ## Troubleshooting
 
-### "plinth-cli command not found"
+### "pedestal command not found"
 
 ```bash
 # Reinstall
-pip install --force-reinstall plinth
+pip install --force-reinstall Pedestal
 ```
 
-### "No plinth-cli project found"
+### "No pedestal project found"
 
-You're not in a plinth-cli project directory. Look for `.plinth.json` or run `plinth-cli init` first.
+You're not in a pedestal project directory. Look for `.Pedestal.json` or run `pedestal init` first.
 
 ### "Module already installed"
 
-You can't add the same module twice. Use `plinth-cli list` to see what's installed.
+You can't add the same module twice. Use `pedestal list` to see what's installed.
 
 ### Database connection errors
 
@@ -298,8 +298,8 @@ Check your `.env` file has the correct `DATABASE_URL`.
 
 ## Next Steps
 
-1. **Create a project:** `plinth-cli init my-app --db sqlite`
-2. **Add features:** `plinth-cli add redis`, `plinth-cli add auth-jwt`
+1. **Create a project:** `pedestal init my-app --db sqlite`
+2. **Add features:** `pedestal add redis`, `pedestal add auth-jwt`
 3. **Start coding:** Add your endpoints in `src/api/v1/`
 4. **Deploy:** Use the generated Dockerfile
 
@@ -309,18 +309,18 @@ Check your `.env` file has the correct `DATABASE_URL`.
 
 | Command                      | Purpose                             |
 | ---------------------------- | ----------------------------------- |
-| `plinth-cli init <name>`     | Create new project                  |
-| `plinth-cli add <module>`    | Add feature (redis, auth-jwt, etc.) |
-| `plinth-cli remove <module>` | Remove feature                      |
-| `plinth-cli list`            | Show installed/available modules    |
-| `plinth-cli doctor`          | Check project health                |
-| `plinth-cli --help`          | Show all options                    |
+| `pedestal init <name>`     | Create new project                  |
+| `pedestal add <module>`    | Add feature (redis, auth-jwt, etc.) |
+| `pedestal remove <module>` | Remove feature                      |
+| `pedestal list`            | Show installed/available modules    |
+| `pedestal doctor`          | Check project health                |
+| `pedestal --help`          | Show all options                    |
 
 ---
 
 ## Developer Documentation
 
-Want to contribute or modify Plinth-CLI? See [developer-guide.md](developer-guide.md) for:
+Want to contribute or modify pedestal? See [developer-guide.md](developer-guide.md) for:
 
 - Code architecture
 - Adding new modules

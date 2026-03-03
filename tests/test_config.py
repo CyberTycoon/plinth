@@ -2,7 +2,7 @@
 
 import pytest
 
-from plinth.config import PlinthConfig, plinth_config, DatabaseDriver, AuthConfig
+from pedestal.config import pedestalConfig, plinth_config, DatabaseDriver, AuthConfig
 
 
 class TestPlinthConfig:

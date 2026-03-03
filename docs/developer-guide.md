@@ -1,6 +1,6 @@
-# plinth-cli Developer Guide
+# pedestal Developer Guide
 
-> Quick reference for internal developers working on the plinth-cli codebase
+> Quick reference for internal developers working on the pedestal codebase
 
 ---
 
@@ -11,17 +11,17 @@
 ```bash
 # 1. Clone the repository
 git clone <repo>
-cd plinth
+cd Pedestal
 
 # 2. Install dependencies
 pip install -r requirements.txt
 
 # 3. Run in development mode (no installation needed)
-python -m plinth-cli --help
+python -m pedestal --help
 
 # OR install in editable mode for regular development
 pip install -e .
-plinth-cli --help
+pedestal --help
 ```
 
 ### What Each Command Does
@@ -30,22 +30,22 @@ plinth-cli --help
 
 Installs all required Python packages (typer, jinja2, pydantic, libcst, rich, etc.) into your current Python environment.
 
-#### `python -m plinth-cli --help`
+#### `python -m pedestal --help`
 
-Runs plinth-cli as a Python module directly from source code. Useful for quick testing without installation. The `-m` flag tells Python to run the `plinth` package's `__main__.py` file.
+Runs pedestal as a Python module directly from source code. Useful for quick testing without installation. The `-m` flag tells Python to run the `Pedestal` package's `__main__.py` file.
 
 #### `pip install -e .`
 
-Installs plinth-cli in **editable (development) mode**:
+Installs pedestal in **editable (development) mode**:
 
 - `-e` = Editable install (creates a link to source code)
 - `.` = Current directory (where `pyproject.toml` is located)
 - Changes to source code are immediately reflected without reinstalling
-- Makes the `plinth` command available system-wide
+- Makes the `Pedestal` command available system-wide
 
-#### `plinth-cli --help`
+#### `pedestal --help`
 
-Displays all available CLI commands, their descriptions, and options. After editable install, you can use `plinth` directly instead of `python -m plinth`.
+Displays all available CLI commands, their descriptions, and options. After editable install, you can use `Pedestal` directly instead of `python -m Pedestal`.
 
 ---
 
@@ -79,10 +79,10 @@ Displays all available CLI commands, their descriptions, and options. After edit
 
 **What it is:** A list in `src/core/registry.py` that holds all API routers
 
-**Why we use it:** Allows plinth-cli to inject new routes without touching `main.py`
+**Why we use it:** Allows pedestal to inject new routes without touching `main.py`
 
 ```python
-# This is the magic that makes 'plinth-cli add' work
+# This is the magic that makes 'pedestal add' work
 ROUTERS: list[APIRouter] = []
 ```
 
@@ -95,7 +95,7 @@ ROUTERS: list[APIRouter] = []
 
 ### 2. State Management
 
-**What it is:** A JSON file (`.plinth.json`) tracking installed modules
+**What it is:** A JSON file (`.Pedestal.json`) tracking installed modules
 
 **Why we use it:** Prevents duplicate installs and enables diagnostics
 
@@ -111,7 +111,7 @@ if state.has_module("redis"):
 
 ### 3. Module Configuration
 
-**Where to add new modules:** [`src/plinth/commands/add.py`](src/plinth/commands/add.py:20)
+**Where to add new modules:** [`src/Pedestal/commands/add.py`](src/Pedestal/commands/add.py:20)
 
 ```python
 MODULE_CONFIG = {
@@ -131,7 +131,7 @@ MODULE_CONFIG = {
 
 ### 4. Error Handling
 
-**Pattern:** All errors inherit from `PlinthError`
+**Pattern:** All errors inherit from `PedestalError`
 
 ```python
 # Raising errors
@@ -140,7 +140,7 @@ raise ProjectExistsError("my-app")
 # Catching in CLI
 try:
     init_project(config, console)
-except PlinthError as e:
+except PedestalError as e:
     console.print(f"[red]Error:[/red] {e.message}")
     raise typer.Exit(1)
 ```
@@ -166,13 +166,13 @@ except PlinthError as e:
 
 ```bash
 # Database only
-plinth-cli init my-app --db postgres
+pedestal init my-app --db postgres
 
 # Database + Auth
-plinth-cli init my-app --db postgres --auth jwt
+pedestal init my-app --db postgres --auth jwt
 
 # Full stack
-plinth-cli init my-app --db postgres --auth jwt --redis
+pedestal init my-app --db postgres --auth jwt --redis
 ```
 
 #### Adding to Existing Projects
@@ -181,18 +181,18 @@ plinth-cli init my-app --db postgres --auth jwt --redis
 cd my-app
 
 # Add database
-plinth-cli add postgres
+pedestal add postgres
 
 # Add auth
-plinth-cli add auth-jwt
+pedestal add auth-jwt
 
 # Add cache
-plinth-cli add redis
+pedestal add redis
 ```
 
 ### Module Configuration
 
-Each module is defined in `src/plinth/commands/add.py` in `MODULE_CONFIG`:
+Each module is defined in `src/Pedestal/commands/add.py` in `MODULE_CONFIG`:
 
 ```python
 "redis": {
@@ -224,7 +224,7 @@ When creating templates, these variables are available:
 ### Step 1: Create the command file
 
 ```python
-# src/plinth/commands/mycommand.py
+# src/Pedestal/commands/mycommand.py
 def my_command(
     project_path: Path,
     console: Console,
@@ -233,7 +233,7 @@ def my_command(
     state_manager = StateManager(project_path)
 
     if not state_manager.exists():
-        raise NotAPlinthProjectError(str(project_path))
+        raise NotAPedestalProjectError(str(project_path))
 
     # Your logic here
     console.print("Done!")
@@ -242,8 +242,8 @@ def my_command(
 ### Step 2: Wire up in CLI
 
 ```python
-# src/plinth/cli.py
-from plinth.commands.mycommand import my_command
+# src/Pedestal/cli.py
+from Pedestal.commands.mycommand import my_command
 
 @app.command()
 def mycmd(
@@ -252,7 +252,7 @@ def mycmd(
     """My new command description."""
     try:
         my_command(path, console)
-    except PlinthError as e:
+    except PedestalError as e:
         console.print(f"[red]Error:[/red] {e.message}")
         raise typer.Exit(1)
 ```
@@ -264,7 +264,7 @@ def mycmd(
 ### Step 1: Add to MODULE_CONFIG
 
 ```python
-# src/plinth/commands/add.py
+# src/Pedestal/commands/add.py
 MODULE_CONFIG = {
     # ... existing modules ...
 
@@ -286,7 +286,7 @@ MODULE_CONFIG = {
 ### Step 2: Add to AVAILABLE_MODULES
 
 ```python
-# src/plinth/config.py
+# src/Pedestal/config.py
 AVAILABLE_MODULES = {
     # ... existing ...
     "stripe": "Stripe payment integration",
@@ -296,7 +296,7 @@ AVAILABLE_MODULES = {
 ### Step 3: Create templates
 
 ```python
-# src/plinth/templates/modules/stripe/core.py.j2
+# src/Pedestal/templates/modules/stripe/core.py.j2
 """Stripe integration."""
 
 import stripe
@@ -312,7 +312,7 @@ async def create_payment_intent(amount: int, currency: str = "usd"):
 ```
 
 ```python
-# src/plinth/templates/modules/stripe/routes.py.j2
+# src/Pedestal/templates/modules/stripe/routes.py.j2
 """Stripe API routes."""
 
 from fastapi import APIRouter
@@ -329,42 +329,42 @@ async def create_intent():
 
 ### Step 4: Add config template (optional)
 
-Update [`src/plinth/templates/base/src/config.py.j2`](src/plinth/templates/base/src/config.py.j2:1) to include Stripe settings.
+Update [`src/Pedestal/templates/base/src/config.py.j2`](src/Pedestal/templates/base/src/config.py.j2:1) to include Stripe settings.
 
 ---
 
 ## CLI Commands for Development
 
-### `python -m plinth-cli <command>`
+### `python -m pedestal <command>`
 
-Runs plinth-cli directly from source code without installation. Useful during development.
+Runs pedestal directly from source code without installation. Useful during development.
 
 ```bash
 # Test init command
-python -m plinth-cli init test-app --db sqlite
+python -m pedestal init test-app --db sqlite
 
 # Test add command
-python -m plinth-cli add redis --path test-app
+python -m pedestal add redis --path test-app
 
 # Show help
-python -m plinth-cli --help
+python -m pedestal --help
 ```
 
-### `plinth-cli <command>` (after `pip install -e .`)
+### `pedestal <command>` (after `pip install -e .`)
 
 Same commands, but available globally after editable install.
 
 ```bash
 # Create project
-plinth-cli init my-app
+pedestal init my-app
 
 # Add features
-plinth-cli add redis
-plinth-cli add auth-jwt
+pedestal add redis
+pedestal add auth-jwt
 
 # Check status
-plinth-cli list
-plinth-cli doctor
+pedestal list
+pedestal doctor
 ```
 
 ### Command Details
@@ -375,23 +375,23 @@ Creates a new FastAPI project. As a developer, you can test with different flags
 
 ```bash
 # Minimal
-plinth-cli init test1
+pedestal init test1
 
 # With database
-plinth-cli init test2 --db postgres
+pedestal init test2 --db postgres
 
 # Full feature
-plinth-cli init test3 --db postgres --auth jwt --redis
+pedestal init test3 --db postgres --auth jwt --redis
 ```
 
 #### `add`
 
-Adds a module. Requires being inside a plinth-cli project:
+Adds a module. Requires being inside a pedestal project:
 
 ```bash
 cd my-app
-plinth-cli add redis      # Adds Redis cache.py
-plinth-cli add auth-jwt   # Adds auth with routes
+pedestal add redis      # Adds Redis cache.py
+pedestal add auth-jwt   # Adds auth with routes
 ```
 
 #### `list`
@@ -399,8 +399,8 @@ plinth-cli add auth-jwt   # Adds auth with routes
 Shows modules. Helpful to verify state:
 
 ```bash
-plinth-cli list --installed   # What's in current project
-plinth-cli list --available   # What can be added
+pedestal list --installed   # What's in current project
+pedestal list --available   # What can be added
 ```
 
 #### `doctor`
@@ -408,7 +408,7 @@ plinth-cli list --available   # What can be added
 Diagnoses issues. Use when things go wrong:
 
 ```bash
-plinth-cli doctor  # Check .plinth.json, structure, modules
+pedestal doctor  # Check .Pedestal.json, structure, modules
 ```
 
 ---
@@ -419,14 +419,14 @@ plinth-cli doctor  # Check .plinth.json, structure, modules
 
 ```bash
 # Run without installing (quick test)
-python -m plinth-cli init test-app --db sqlite
+python -m pedestal init test-app --db sqlite
 
 # After making changes, test with editable install
 pip install -e .
-plinth-cli init test-app --db postgres --auth jwt
+pedestal init test-app --db postgres --auth jwt
 
 # Debug logging
-python -m plinth-cli init test-app --db sqlite -v
+python -m pedestal init test-app --db sqlite -v
 ```
 
 ### Adding a New Dependency
@@ -452,14 +452,14 @@ Templates are Jinja2. Common variables available:
 
 | File                                          | Purpose            | When to Edit           |
 | --------------------------------------------- | ------------------ | ---------------------- |
-| [`cli.py`](src/plinth/cli.py:1)               | Command routing    | Add/remove commands    |
-| [`config.py`](src/plinth/config.py:1)         | Constants & config | Add modules/drivers    |
-| [`state.py`](src/plinth/state.py:1)           | State dataclasses  | Change state format    |
-| [`injector.py`](src/plinth/injector.py:1)     | LibCST injection   | Change injection logic |
-| [`templates.py`](src/plinth/templates.py:1)   | Jinja2 rendering   | Change build process   |
-| [`packages.py`](src/plinth/packages.py:1)     | uv wrapper         | Change package install |
-| [`logger.py`](src/plinth/logger.py:1)         | Rich logging       | Change output format   |
-| [`exceptions.py`](src/plinth/exceptions.py:1) | Error classes      | Add new error types    |
+| [`cli.py`](src/Pedestal/cli.py:1)               | Command routing    | Add/remove commands    |
+| [`config.py`](src/Pedestal/config.py:1)         | Constants & config | Add modules/drivers    |
+| [`state.py`](src/Pedestal/state.py:1)           | State dataclasses  | Change state format    |
+| [`injector.py`](src/Pedestal/injector.py:1)     | LibCST injection   | Change injection logic |
+| [`templates.py`](src/Pedestal/templates.py:1)   | Jinja2 rendering   | Change build process   |
+| [`packages.py`](src/Pedestal/packages.py:1)     | uv wrapper         | Change package install |
+| [`logger.py`](src/Pedestal/logger.py:1)         | Rich logging       | Change output format   |
+| [`exceptions.py`](src/Pedestal/exceptions.py:1) | Error classes      | Add new error types    |
 
 ---
 
@@ -491,7 +491,7 @@ Templates are Jinja2. Common variables available:
 python -m py_compile src/core/registry.py
 
 # Debug the transformer
-from plinth.injector import RegistryTransformer
+from Pedestal.injector import RegistryTransformer
 import libcst as cst
 
 source = Path("registry.py").read_text()
@@ -505,19 +505,19 @@ print(modified.code)
 
 ```bash
 # Check template paths are correct
-python -c "from plinth.templates import TemplateRenderer; t = TemplateRenderer(); print(t.env.list_templates())"
+python -c "from Pedestal.templates import TemplateRenderer; t = TemplateRenderer(); print(t.env.list_templates())"
 ```
 
 ### State corruption
 
 ```bash
 # Delete and re-initialize state
-rm .plinth.json
-plinth-cli doctor  # Will detect issues
+rm .Pedestal.json
+pedestal doctor  # Will detect issues
 ```
 
 ---
 
 ## Questions?
 
-Check the complete guide: [`plinth-complete-guide.md`](plinth-complete-guide.md:1)
+Check the complete guide: [`Pedestal-complete-guide.md`](Pedestal-complete-guide.md:1)

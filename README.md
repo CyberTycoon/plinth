@@ -1,4 +1,4 @@
-# 🪨 Plinth-CLI
+# 🪨 pedestal
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -17,20 +17,20 @@ Every new FastAPI project starts with the same 2-hour slog:
 
 ## The Solution
 
-Plinth-CLI scaffolds production-ready FastAPI projects in **2 seconds**, then lets you add features incrementally without breaking your code.
+pedestal scaffolds production-ready FastAPI projects in **2 seconds**, then lets you add features incrementally without breaking your code.
 
 ```bash
 # Start with exactly what you need
-plinth-cli init my-api --db postgres --auth jwt
+pedestal init my-api --db postgres --auth jwt
 
 # Change your mind later? No problem.
-plinth-cli add redis
-plinth-cli add auth-session
+pedestal add redis
+pedestal add auth-session
 ```
 
-## Why Plinth-CLI?
+## Why pedestal?
 
-| Without Plinth-CLI                            | With Plinth-CLI                                |
+| Without pedestal                            | With pedestal                                |
 | --------------------------------------------- | ---------------------------------------------- |
 | Copy-paste boilerplate from old projects      | Generate clean, consistent structure instantly |
 | Fear of adding features mid-project           | Add/remove modules anytime safely              |
@@ -42,20 +42,20 @@ plinth-cli add auth-session
 ### From PyPI
 
 ```bash
-pip install plinth-cli
+pip install pedestal
 ```
 
 ### Install with uv (Faster)
 
 ```bash
-uv tool install plinth-cli
+uv tool install pedestal
 ```
 
 ### From Source
 
 ```bash
-git clone https://github.com/cybertycoon/plinth.git
-cd plinth-cli
+git clone https://github.com/cybertycoon/Pedestal.git
+cd pedestal
 pip install -r requirements.txt
 pip install -e .
 ```
@@ -65,7 +65,7 @@ pip install -e .
 ### Create a Basic Project
 
 ```bash
-plinth-cli init my-app
+pedestal init my-app
 cd my-app
 uv run uvicorn src.main:app --reload
 ```
@@ -73,7 +73,7 @@ uv run uvicorn src.main:app --reload
 ### Create with Database & Auth
 
 ```bash
-plinth-cli init my-api --db postgres --auth jwt --redis
+pedestal init my-api --db postgres --auth jwt --redis
 ```
 
 ### Add Features Later
@@ -82,27 +82,27 @@ plinth-cli init my-api --db postgres --auth jwt --redis
 cd my-api
 
 # Add Redis caching
-plinth-cli add redis
+pedestal add redis
 
 # Add JWT authentication
-plinth-cli add auth-jwt
+pedestal add auth-jwt
 ```
 
 ## Commands
 
-### `plinth-cli init <name>` — Create New Project
+### `pedestal init <name>` — Create New Project
 
 Scaffold a new FastAPI project with your chosen features.
 
 ```bash
 # Basic project
-plinth-cli init my-app
+pedestal init my-app
 
 # With database and auth
-plinth-cli init my-api --db postgres --auth jwt
+pedestal init my-api --db postgres --auth jwt
 
 # Full stack
-plinth-cli init my-service --db postgres --redis --auth jwt
+pedestal init my-service --db postgres --redis --auth jwt
 ```
 
 **Options:**
@@ -111,7 +111,7 @@ plinth-cli init my-service --db postgres --redis --auth jwt
 - `--redis` — Add Redis caching
 - `--auth jwt|session` — Add authentication
 
-### `plinth-cli add <module>` — Add Features Later
+### `pedestal add <module>` — Add Features Later
 
 Add modules to an existing project without breaking your code.
 
@@ -119,38 +119,38 @@ Add modules to an existing project without breaking your code.
 cd my-api
 
 # Add Redis for caching
-plinth-cli add redis
+pedestal add redis
 
 # Add JWT authentication
-plinth-cli add auth-jwt
+pedestal add auth-jwt
 
 # Add database (if not added during init)
-plinth-cli add postgres
+pedestal add postgres
 ```
 
-### `plinth-cli remove <module>` — Remove Features
+### `pedestal remove <module>` — Remove Features
 
 Cleanly remove a module and its code.
 
 ```bash
-plinth-cli remove redis
-plinth-cli remove auth-jwt
+pedestal remove redis
+pedestal remove auth-jwt
 ```
 
-### `plinth-cli list` — See What's Available
+### `pedestal list` — See What's Available
 
 Shows installed modules and available modules you can add.
 
 ```bash
-plinth-cli list
+pedestal list
 ```
 
-### `plinth-cli doctor` — Check Project Health
+### `pedestal doctor` — Check Project Health
 
-Diagnoses issues with your Plinth-CLI project.
+Diagnoses issues with your pedestal project.
 
 ```bash
-plinth-cli doctor
+pedestal doctor
 ```
 
 ## Available Modules
@@ -162,7 +162,7 @@ plinth-cli doctor
 
 ## How It Works
 
-Plinth-CLI doesn't just copy files—it **understands** your Python code using AST manipulation. When you run `plinth-cli add redis`, it:
+pedestal doesn't just copy files—it **understands** your Python code using AST manipulation. When you run `pedestal add redis`, it:
 
 1. Injects Redis connection code into your main app
 2. Updates `.env` with Redis URL
@@ -194,16 +194,16 @@ my-app/
 │   └── __init__.py
 ├── .env.example          # Environment template
 ├── .gitignore           # Git ignore rules
-├── .plinth.json         # Tracks installed modules
+├── .Pedestal.json         # Tracks installed modules
 ├── pyproject.toml       # Dependencies
 └── README.md            # Project readme
 ```
 
 ## Documentation
 
-- [Complete User Guide](https://github.com/CyberTycoon/plinth/blob/main/docs/plinth-complete-guide.md)
-- [Developer Guide](https://github.com/CyberTycoon/plinth/blob/main/docs/developer-guide.md)
-- [Roadmap](https://github.com/CyberTycoon/plinth/blob/main/ROADMAP.md)
+- [Complete User Guide](https://github.com/CyberTycoon/Pedestal/blob/main/docs/Pedestal-complete-guide.md)
+- [Developer Guide](https://github.com/CyberTycoon/Pedestal/blob/main/docs/developer-guide.md)
+- [Roadmap](https://github.com/CyberTycoon/Pedestal/blob/main/ROADMAP.md)
 
 ## License
 

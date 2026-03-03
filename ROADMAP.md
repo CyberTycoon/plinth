@@ -1,6 +1,6 @@
-# 🗺️ Plinth-CLI Roadmap
+# 🗺️ pedestal Roadmap
 
-> This roadmap outlines our vision for Plinth-CLI through 2027 and beyond. We are committed to long-term maintenance and continuous improvement.
+> This roadmap outlines our vision for pedestal through 2027 and beyond. We are committed to long-term maintenance and continuous improvement.
 
 **Legend:**
 
@@ -13,7 +13,7 @@
 
 ## Current Status
 
-Plinth-CLI is actively maintained and production-ready at v1.0.2. We follow semantic versioning and maintain backward compatibility within major versions.
+pedestal is actively maintained and production-ready at v1.0.2. We follow semantic versioning and maintain backward compatibility within major versions.
 
 ### ✅ Implemented Features
 
@@ -22,7 +22,7 @@ Plinth-CLI is actively maintained and production-ready at v1.0.2. We follow sema
 - **Authentication:** JWT and session-based auth
 - **Caching:** Redis integration
 - **Code Injection:** AST-aware modifications via LibCST
-- **State Management:** `.plinth.json` for tracking project configuration
+- **State Management:** `.Pedestal.json` for tracking project configuration
 
 ---
 
@@ -32,21 +32,21 @@ Plinth-CLI is actively maintained and production-ready at v1.0.2. We follow sema
 
 **Focus:** Hardening existing features and expanding the module catalog
 
-- [ ] 📋 **Testing Module** — `plinth add pytest` for test scaffolding with fixtures
+- [ ] 📋 **Testing Module** — `Pedestal add pytest` for test scaffolding with fixtures
 - [ ] 📋 **Docker Module** — Enhanced Docker Compose with PostgreSQL/Redis services
-- [ ] 📋 **Linting Module** — `plinth add ruff` for code formatting and linting
+- [ ] 📋 **Linting Module** — `Pedestal add ruff` for code formatting and linting
 - [ ] 📋 **MongoDB Module** — NoSQL database support via Motor
 - [ ] 📋 **Doctor Enhancements** — Better diagnostics for missing dependencies
 
 ### Q2 2026: Developer Experience
 
-**Focus:** Making Plinth-CLI more powerful for existing FastAPI projects
+**Focus:** Making pedestal more powerful for existing FastAPI projects
 
-- [ ] 📋 **Project Templates** — `plinth init --template microservice` for different architectures
-- [ ] 📋 **Alembic Integration** — `plinth add migrations` with auto-generated revision support
+- [ ] 📋 **Project Templates** — `Pedestal init --template microservice` for different architectures
+- [ ] 📋 **Alembic Integration** — `Pedestal add migrations` with auto-generated revision support
 - [ ] 📋 **Celery Module** — Background task queues with Redis/RabbitMQ
-- [ ] 📋 **Environment Sync** — `plinth sync` to reconcile .env with pyproject.toml
-- [ ] 📋 **Upgrade Command** — `plinth upgrade` to update modules to latest versions
+- [ ] 📋 **Environment Sync** — `Pedestal sync` to reconcile .env with pyproject.toml
+- [ ] 📋 **Upgrade Command** — `Pedestal upgrade` to update modules to latest versions
 
 ### Q3 2026: Ecosystem Growth
 
@@ -96,15 +96,15 @@ Plinth-CLI is actively maintained and production-ready at v1.0.2. We follow sema
 
 We welcome contributions! To propose a new module or feature:
 
-1. Open a [GitHub Discussion](https://github.com/cybertycoon/plinth/discussions)
-2. Submit a [GitHub Issue](https://github.com/cybertycoon/plinth/issues)
+1. Open a [GitHub Discussion](https://github.com/cybertycoon/Pedestal/discussions)
+2. Submit a [GitHub Issue](https://github.com/cybertycoon/Pedestal/issues)
 
 ### Contributing New Modules
 
-Modules are Jinja2 templates in `src/plinth/templates/`. See existing modules for patterns:
+Modules are Jinja2 templates in `src/Pedestal/templates/`. See existing modules for patterns:
 
-- [`src/plinth/templates/base/`](src/plinth/templates/base/) — Base project template
-- Add module metadata to [`plinth_config.AVAILABLE_MODULES`](src/plinth/config.py:72)
+- [`src/Pedestal/templates/base/`](src/Pedestal/templates/base/) — Base project template
+- Add module metadata to [`Pedestal_config.AVAILABLE_MODULES`](src/Pedestal/config.py:72)
 
 ---
 
