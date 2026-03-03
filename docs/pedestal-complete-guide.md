@@ -6,7 +6,7 @@
 
 ## What is pedestal?
 
-pedestal is a tool that creates FastAPI projects with the features you need. Instead of starting from scratch, tell pedestal what you want (database, authentication, etc.) and it sets everything up for you.
+Pedestal is a tool that creates FastAPI projects with the features you need. Instead of starting from scratch, tell pedestal what you want (database, authentication, etc.) and it sets everything up for you.
 
 **The big idea:** Start simple, add features later without breaking your code.
 
@@ -307,8 +307,8 @@ Check your `.env` file has the correct `DATABASE_URL`.
 
 ## Commands Reference
 
-| Command                      | Purpose                             |
-| ---------------------------- | ----------------------------------- |
+| Command                    | Purpose                             |
+| -------------------------- | ----------------------------------- |
 | `pedestal init <name>`     | Create new project                  |
 | `pedestal add <module>`    | Add feature (redis, auth-jwt, etc.) |
 | `pedestal remove <module>` | Remove feature                      |
